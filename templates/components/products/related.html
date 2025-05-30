@@ -1,0 +1,10 @@
+{{#if product.related_products}}
+	<div class="halo-block halo-block-product halo-block-product2" id="halo-related-products">
+		<div class="container">
+			<div class="halo-block-header">
+		        <h2 class="title">{{title}}</h2>
+		    </div>
+		    {{> components/products/carousel products=products productsnew=productsnew block_id=block_id list="Related Products"}}
+		</div>
+	</div>
+{{/if}}

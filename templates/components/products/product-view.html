@@ -1,0 +1,634 @@
+{{#each product.reviews.messages}}
+    {{#if error}}
+        {{> components/common/alert-error error}}
+    {{/if}}
+    {{#if success}}
+        {{> components/common/alert-success success}}
+    {{/if}}
+{{/each}}  
+<div class="productView halo-productView productView-slick" 
+    data-event-type="product"
+    data-entity-id="{{product.id}}"
+    data-name="{{product.title}}"
+    data-product-category="
+    {{#each product.category}}
+        {{#if @last}}{{this}}{{else}}{{this}}, {{/if}}
+    {{/each}}"  
+    data-product-brand="{{product.brand.name}}"
+    data-product-price="
+    {{#or customer (unless settings.hide_price_from_guests)}}
+        {{#if product.price.with_tax}}
+            {{product.price.with_tax.value}}
+        {{else}}
+            {{product.price.without_tax.value}}
+        {{/if}}
+    {{else}}
+        {{lang 'common.login_for_pricing'}}
+    {{/or}}"
+    data-product-variant="single-product-option"
+>
+    <div class="halo-productView-left productView-images zoom-image" data-image-gallery>
+        <div class="productView-image-wrapper">
+            {{#if theme_settings.halo-label-product}}
+                <div class="halo-badges">
+                    {{#each productsnew}}
+                        {{#if id '==' ../product.id}}
+                            <div class="new-badge halo-badge">
+                                <span class="text">{{lang 'products.new_label'}}</span>
+                            </div>
+                        {{/if}}
+                    {{/each}}
+                    {{#each product.custom_fields}}
+                        {{#if name '===' '__customlabel'}}
+                            <div class="custom-badge halo-badge">
+                                <span class="text">{{{value}}}</span>
+                            </div>
+                        {{/if}}
+                    {{/each}}
+                    {{#unless product.can_purchase}}
+                        {{#if product.out_of_stock}}
+                            {{#if product.out_of_stock_message}}
+                                <div class="soldOut-badge halo-badge">
+                                    <span class="text">{{lang 'products.sold_out_label'}}</span>
+                                </div>
+                            {{else}}
+                                <div class="soldOut-badge halo-badge">
+                                    <span class="text">{{lang 'products.sold_out_label'}}</span>
+                                </div>
+                            {{/if}}
+                        {{/if}}
+                    {{/unless}}
+                </div>
+            {{/if}}
+            <div class="productView-nav"
+                data-slick='{
+                    "fade": true,
+                    "arrows": false,
+                    "dots": false,
+                    "infinite": false,
+                    "slidesToShow": 1,
+                    "slidesToScroll": 1,
+                    "asNavFor": ".productView-slick .halo-productView-left .productView-for"
+                }'>
+                {{#if product.images.length}}
+                    {{#each product.images}}
+                        <div>
+                            <figure class="productView-image" data-fancybox="images" href="{{getImageSrcset this (cdn ../theme_settings.default_image_product) 1x=../theme_settings.zoom_size}}" 
+                                data-image-gallery-main
+                                data-zoom-image="{{getImageSrcset this (cdn ../theme_settings.default_image_product) 1x=../theme_settings.zoom_size}}">
+                                <div class="productView-img-container">
+                                    <a href="{{getImageSrcset this (cdn ../theme_settings.default_image_product) 1x=../theme_settings.zoom_size}}">
+                                        {{> components/common/responsive-img
+                                            image=this
+                                            class="productView-image--default"
+                                            fallback_size=../theme_settings.product_size
+                                            lazyload="disabled"
+                                            default_image=../theme_settings.default_image_product
+                                            otherAttributes="data-main-image"
+                                        }}
+                                    </a>
+                                </div>
+                            </figure>
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <div class="productView-nav noImage">
+                        <figure class="productView-image is-error">
+                            <div class="productView-img-container">
+                                <img class="productView-image--default lazyload"
+                                 data-sizes="auto"
+                                 src="{{cdn 'img/loading.svg'}}"
+                                 data-src="{{getImage product.main_image 'product_size' (cdn theme_settings.default_image_product)}}"
+                                 alt="{{product.main_image.alt}}" title="{{product.main_image.alt}}" data-main-image>
+                            </div>
+                        </figure>
+                    </div>
+                {{/if}}    
+                {{#if product.videos.list.length}}
+                    {{#each product.videos.list}}
+                        <div>
+                            <figure class="productView-image">
+                                <div class="productView-img-container">
+                                    <a href="//www.youtube.com/embed/{{id}}">
+                                        <img class="lazyload" src="{{cdn 'img/loading.svg'}}" data-src="//i.ytimg.com/vi/{{id}}/hqdefault.jpg"/ data-sizes="auto" alt="YouTube video">
+                                    </a>
+                                    <div class="productView-video">
+                                        <div data-youtube="{{id}}"></div>
+                                    </div>
+                                </div>
+                            </figure>
+                        </div>
+                    {{/each}}
+                {{/if}}
+            </div>
+            <div class="halo-zoom">
+                <svg class="icon" aria-hidden="true"><use xlink:href="#icon-search"></use></svg>
+                <span class="text">{{lang 'products.zoom'}}</span>
+            </div>
+            {{> components/halothemes/products/halo-compare-colors}}
+        </div>
+        <div class="productView-thumbnail-wrapper">
+            
+            <div class="productView-for" data-slick='{
+                "arrows": true,
+                "dots": false,
+                "infinite": false,
+                "focusOnSelect": true,
+                "slidesToShow": 6,
+                "slidesToScroll": 1,
+                "asNavFor": ".productView-slick .halo-productView-left .productView-nav",
+                "nextArrow": "<svg class=&apos;slick-next slick-arrow&apos; aria-label=&apos;Next Slide&apos;><use xlink:href=&apos;#slick-arrow-next&apos;></use></svg>", 
+                "prevArrow": "<svg class=&apos;slick-prev slick-arrow&apos; aria-label=&apos;Previous Slide&apos;><use xlink:href=&apos;#slick-arrow-prev&apos;></use></svg>",
+                "responsive": [
+                    {
+                        "breakpoint": 1025,
+                        "settings": {
+                            "slidesToShow": 5,
+                            "slidesToScroll": 1
+                        }
+                    },
+                    {
+                        "breakpoint": 415,
+                        "settings": {
+                            "slidesToShow": 4,
+                            "slidesToScroll": 1
+                        }
+                    },
+                    {
+                        "breakpoint": 321,
+                        "settings": {
+                            "slidesToShow": 3,
+                            "slidesToScroll": 1
+                        }
+                    }
+                ]
+            }'>
+                {{#each product.images}}
+                    <div>
+                        <div class="productView-thumbnail">
+                            <a
+                                class="productView-thumbnail-link"
+                                href="{{getImageSrcset this (cdn ../theme_settings.default_image_product) 1x=../theme_settings.zoom_size}}"
+                                data-image-gallery-item
+                                data-image-gallery-new-image-url="{{getImageSrcset this (cdn ../theme_settings.default_image_product) 1x=../theme_settings.product_size}}"
+                                data-image-gallery-new-image-srcset="{{getImageSrcset this use_default_sizes=true}}"
+                                data-image-gallery-zoom-image-url="{{getImageSrcset this (cdn ../theme_settings.default_image_product) 1x=../theme_settings.zoom_size}}"
+                            >
+                            {{> components/common/responsive-img
+                                image=this
+                                fallback_size=../theme_settings.productview_thumb_size
+                                lazyload=../theme_settings.lazyload_mode
+                            }}
+                            </a>
+                        </div>
+                    </div>
+                {{/each}}
+                 
+                {{#if product.videos.list.length}}
+                    {{#each product.videos.list}}
+                        <div>
+                            <div class="productView-thumbnail">
+                                <a
+                                    class="productView-thumbnail-link productView-thumbnail-linkVideo"
+                                    href="//www.youtube.com/embed/{{id}}"
+                                    data-image-gallery-item
+                                >
+                                    <span class="videoText">
+                                        <svg class="icon" aria-hidden="true"><use xlink:href="#icon-video-product"></use></svg>
+                                        <span class="text">{{lang 'products.video'}}</span>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    {{/each}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div class="halo-productView-right">
+
+        {{> components/halothemes/products/halo-next-products}}
+
+        <div class="productView-details">
+            <div class="productView-product">
+                {{#if product.brand}}
+                    <h2 class="productView-brand">
+                        <a href="{{product.brand.url}}">{{product.brand.name}}</span></a>
+                    </h2>
+                {{/if}}
+                <h1 class="productView-title m-prduct-detail">{{product.title}}</h1>
+                <div class="productView-topInfo">
+                    <div class="productView-rating">
+                        {{#if settings.show_product_rating}}
+                            {{> components/products/ratings rating=product.rating}}
+                            <span class="productView-reviewLink review-link">
+                                {{#if product.num_reviews '>' 0}}
+                                    <a href="{{product.url}}#tab-reviews">
+                                        {{lang 'products.reviews.link_to_review' total=product.num_reviews}}
+                                    </a>
+                                {{else}}
+                                    {{lang 'products.reviews.link_to_review' total=product.num_reviews}}
+                                {{/if}}
+                            </span>
+                        {{/if}}
+                        {{#unless product.out_of_stock}}
+                            {{#if theme_settings.product_soldProduct}}
+                                <div class="productView-soldProduct"></div>
+                            {{/if}}
+                        {{/unless}}
+                    </div>
+                </div>
+                <div class="productView-info">
+                    {{#if product.sku}}
+                        <!--<div class="productView-info-item">-->
+                        <!--    <span class="productView-info-name sku-label">{{lang 'products.sku'}}</span>-->
+                        <!--    <span class="productView-info-value" data-product-sku>{{product.sku}}</span>-->
+                        <!--</div>-->
+                    {{/if}}
+                    {{#if product.upc}}
+                        <div class="productView-info-item">
+                            <span class="productView-info-name upc-label">{{lang 'products.upc'}}</span>
+                            <span class="productView-info-value" data-product-upc>{{product.upc}}</span>
+                        </div>
+                    {{/if}}
+                    {{#if product.condition}}
+                        <div class="productView-info-item">
+                            <span class="productView-info-name">{{lang 'products.condition'}}</span>
+                            <span class="productView-info-value">{{product.condition}}</span>
+                        </div>
+                    {{/if}}
+                    {{#if product.availability}}
+                        <div class="productView-info-item">
+                            <span class="productView-info-name">{{lang 'products.availability'}}</span>
+                            <span class="productView-info-value">{{product.availability}}</span>
+                        </div>
+                    {{/if}}
+                    {{#all product.weight theme_settings.show_product_weight}}
+                        <div class="productView-info-item">
+                            <span class="productView-info-name">{{lang 'products.weight'}}</span>
+                            <span class="productView-info-value" data-product-weight>{{product.weight}}</span>
+                        </div>
+                    {{/all}}
+                    {{#all product.width product.height product.depth theme_settings.show_product_dimensions}}
+                        <div class="productView-info-item">
+                            <span class="productView-info-name">{{lang 'products.width'}}</span>
+                            <span class="productView-info-value" data-product-width>
+                                {{product.width}}
+                                {{#if settings.measurements.length '==' 'Centimeters'}}
+                                    ({{lang 'products.measurement.metric'}})
+                                {{else}}
+                                    ({{lang 'products.measurement.imperial'}})
+                                {{/if}}
+                            </span>
+                        </div>
+                        <div class="productView-info-item">
+                            <span class="productView-info-name">{{lang 'products.height'}}</span>
+                            <span class="productView-info-value" data-product-height>
+                                {{product.height}}
+                                {{#if settings.measurements.length '==' 'Centimeters'}}
+                                    ({{lang 'products.measurement.metric'}})
+                                {{else}}
+                                    ({{lang 'products.measurement.imperial'}})
+                                {{/if}}
+                            </span>
+                        </div>
+                        <div class="productView-info-item">
+                            <span class="productView-info-name">{{lang 'products.depth'}}</span>
+                            <span class="productView-info-value" data-product-depth>
+                                {{product.depth}}
+                                {{#if settings.measurements.length '==' 'Centimeters'}}
+                                    ({{lang 'products.measurement.metric'}})
+                                {{else}}
+                                    ({{lang 'products.measurement.imperial'}})
+                                {{/if}}
+                            </span>
+                        </div>
+                    {{/all}}
+                    {{#if product.min_purchase_quantity}}
+                        <div class="productView-info-item">
+                            <span class="productView-info-name">{{lang 'products.min_purchase_quantity'}}</span>
+                            <span class="productView-info-value">{{lang 'products.purchase_units' quantity=product.min_purchase_quantity}}</span>
+                        </div>
+                    {{/if}}
+                    {{#if product.max_purchase_quantity}}
+                        <div class="productView-info-item">
+                            <span class="productView-info-name">{{lang 'products.max_purchase_quantity'}}</span>
+                            <span class="productView-info-value">{{lang 'products.purchase_units' quantity=product.max_purchase_quantity}}</span>
+                        </div>
+                    {{/if}}
+                    {{#if product.gift_wrapping_available}}
+                        <div class="productView-info-item">
+                            <span class="productView-info-name">{{lang 'products.gift_wrapping'}}</span>
+                            <span class="productView-info-value">{{lang 'products.gift_wrapping_available'}}</span>
+                        </div>
+                    {{/if}}
+                    {{#if product.shipping}}
+                        {{#if product.shipping.calculated}}
+                            <div class="productView-info-item">
+                                <span class="productView-info-name">{{lang 'products.shipping'}}</span>
+                                <span class="productView-info-value">{{lang 'products.shipping_calculated'}}</span>
+                            </div>
+                        {{else}}
+                            {{#if product.shipping.price.value '===' 0}}
+                                <div class="productView-info-item">
+                                    <span class="productView-info-name">{{lang 'products.shipping'}}</span>
+                                    <span class="productView-info-value">{{lang 'products.shipping_free'}}</span>
+                                </div>
+                            {{else}}
+                                <div class="productView-info-item">
+                                    <span class="productView-info-name">{{lang 'products.shipping'}}</span>
+                                    <span class="productView-info-value">{{lang 'products.shipping_fixed' amount=product.shipping.price.formatted}}</span>
+                                </div>
+                            {{/if}}
+                        {{/if}}
+                    {{/if}}
+                    {{#each product.custom_fields}}
+                        {{#startsWith '__' name}}
+                        {{else}}
+                            <div class="productView-info-item m-custome-field">
+                                <span class="productView-info-name {{chop name}}"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="19" viewBox="0 0 13 19" fill="none">
+<rect x="0.451172" y="16.9772" width="19" height="3" transform="rotate(-60 0.451172 16.9772)" fill="url(#paint0_linear_186_622)" fill-opacity="0.8"/>
+<defs>
+<linearGradient id="paint0_linear_186_622" x1="3.20617" y1="17.6772" x2="11.1474" y2="24.98" gradientUnits="userSpaceOnUse">
+<stop stop-color="#6C36E0"/>
+<stop offset="1" stop-color="#D73CE7"/>
+</linearGradient>
+</defs>
+</svg></span>
+                                <span class="productView-info-value {{chop name}}">{{{ sanitize value}}}</span>
+                            </div>
+                        {{/startsWith}}
+                    {{/each}}
+                    {{#if settings.bulk_discount_enabled}}
+                        {{#if product.bulk_discount_rates.length}}
+                            {{> components/products/bulk-discount-rates bulk_discount_rates=product.bulk_discount_rates}}
+                        {{/if}}
+                    {{/if}}
+                </div>
+
+                {{> components/halothemes/products/halo-product-countdown custom_fields=product.custom_fields id=product.id}}
+
+                <!--<div class="productView-price">-->
+                <!--    {{#or customer (unless settings.hide_price_from_guests)}}-->
+                <!--        {{> components/products/price price=product.price}}-->
+                <!--    {{else}}-->
+                <!--        {{> components/common/login-for-pricing}}-->
+                <!--    {{/or}}-->
+                <!--    {{#if product.call_for_price}}-->
+                <!--        <p><span>{{product.call_for_price}}</span></p>-->
+                <!--    {{/if}}-->
+                <!--</div>-->
+                {{{region name="product_below_price"}}}
+
+                {{#if product.detail_messages}}
+                    <div class="productView-messages">
+                        {{product.detail_messages}}
+                    </div>
+                {{/if}}
+
+                {{#if product.description}}
+                    <!--<div class="productView-bottomInfo">-->
+                    <!--    <div class="productView-shortDesc">-->
+                    <!--        {{{product.description}}}-->
+                    <!--    </div>-->
+                    <!--    <div class="productView-moreDesc">-->
+                    <!--        <a class="link" href="#"> -->
+                    <!--            <span>{{lang 'common.more_details'}}</span>-->
+                    <!--        </a>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="productView-details m-custom-box">
+            <div class="productView-options">
+                {{#if product.release_date }}
+                    <p class="productView-releaseDate">{{product.release_date}}</p>
+                {{/if}}
+                <form class="form" method="post" action="{{product.cart_url}}" enctype="multipart/form-data"
+                      data-cart-item-add>
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="product_id" value="{{product.id}}"/>
+                    {{#if product.cart_order_source}}
+                        <input type="hidden" name="cart_order_source" value="{{product.cart_order_source}}"/>
+                    {{/if}}
+                    <!--{{#if product.options}}-->
+                    <!--    <div class="productView-optionsLabel">{{lang 'products.choose_options'}}:</div>-->
+                    <!--{{/if}}-->
+                    <div data-product-option-change style="display:none;">
+                        {{#each product.options}}
+                            {{{dynamicComponent 'components/products/options'}}}
+                        {{/each}}
+                    </div>
+                    {{#if theme_settings.halo_stock_level}}
+                        <div class="productView-optionsStock u-hiddenVisually">
+                            <span>{{lang 'products.stock_hurry_up'}}</span><span data-stock-left></span><span>{{lang 'products.stock_left'}}</span>
+                        </div>
+                    {{/if}}
+                    {{#unless theme_settings.halo_stock_level}}
+                        <div class="form-field form-field--stock{{#unless product.stock_level}} u-hiddenVisually{{/unless}}">
+                            <label class="form-label form-label--alternate">
+                                {{lang 'products.current_stock'}}
+                                <span data-product-stock>{{product.stock_level}}</span>
+                            </label>
+                        </div>
+                    {{/unless}}
+                    
+<div class="warranty-selector">
+  <p class="title">
+    <strong>Select Warranty:</strong>
+    <span id="selected-warranty">5 Years in-home warranty +199</span>
+  </p>
+  <div class="options">
+    <div class="option selected m-options" data-warranty="5 Years in-home warranty +199">
+      <div class="m-label">
+        <strong>5 Years</strong>
+        <span>in-home warranty +199</span>
+      </div>
+      <div class="tick">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="21" viewBox="0 0 22 21" fill="none">
+          <rect x="0.799805" width="21" height="21" rx="5" fill="url(#paint0_linear_177_1019)"/>
+          <path d="M14.4531 6L9.78612 10.6956L7.78672 8.6806L5.91992 10.563L9.78612 14.45L16.3199 7.8759L14.4531 6Z" fill="white"/>
+          <defs>
+            <linearGradient id="paint0_linear_177_1019" x1="3.8448" y1="4.9" x2="19.7099" y2="7.20362" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#9D34B4"/>
+              <stop offset="1" stop-color="#000000"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+    <div class="option " data-warranty="1 Year in-home warranty - Free">
+      <div class="m-label">
+        <strong>1 Year</strong>
+        <span>in-home warranty - Free</span>
+      </div>
+      <div class="tick">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="21" viewBox="0 0 22 21" fill="none">
+          <rect x="0.799805" width="21" height="21" rx="5" fill="url(#paint0_linear_177_1019)"/>
+          <path d="M14.4531 6L9.78612 10.6956L7.78672 8.6806L5.91992 10.563L9.78612 14.45L16.3199 7.8759L14.4531 6Z" fill="white"/>
+          <defs>
+            <linearGradient id="paint0_linear_177_1019" x1="3.8448" y1="4.9" x2="19.7099" y2="7.20362" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#9D34B4"/>
+              <stop offset="1" stop-color="#000000"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+    <div class="help-container">
+      <div class="help"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+<path d="M17.0766 2.92339C17.0766 2.92339 17.5638 3.41062 18.5383 4.38508C19.5128 5.35954 20 7.23118 20 10C20 12.7688 19.0255 15.1277 17.0766 17.0766C15.1277 19.0255 12.7688 20 10 20C7.23118 20 4.87231 19.0255 2.92339 17.0766C0.974462 15.1277 0 12.7688 0 10C0 7.23118 0.974462 4.87231 2.92339 2.92339C4.87231 0.974463 7.23118 0 10 0C12.7688 0 15.1277 0.974463 17.0766 2.92339ZM10.2823 3.30645C8.29301 3.30645 6.72043 4.16667 5.56452 5.8871C5.40323 6.12903 5.44355 6.34409 5.68548 6.53226L7.09677 7.58065C7.33871 7.76882 7.55376 7.74194 7.74194 7.5C8.17204 6.98925 8.54167 6.61962 8.85081 6.39113C9.15995 6.16263 9.55645 6.04839 10.0403 6.04839C10.4973 6.04839 10.9207 6.17608 11.3105 6.43145C11.7003 6.68683 11.8952 7.00269 11.8952 7.37903C11.8952 7.67473 11.7944 7.90995 11.5927 8.08468C11.3911 8.25941 11.0618 8.48118 10.6048 8.75C10.121 9.01882 9.76478 9.23387 9.53629 9.39516C9.3078 9.55645 9.05914 9.83871 8.79032 10.2419C8.52151 10.6452 8.3871 11.1022 8.3871 11.6129V11.7742C8.3871 12.0968 8.54839 12.2581 8.87097 12.2581H11.129C11.4516 12.2581 11.6129 12.0968 11.6129 11.7742V11.7339C11.6129 11.4919 11.7876 11.25 12.1371 11.0081C12.4866 10.7661 12.8696 10.5376 13.2863 10.3226C13.703 10.1075 14.086 9.74462 14.4355 9.23387C14.7849 8.72312 14.9597 8.11828 14.9597 7.41936C14.9597 6.29032 14.4758 5.32258 13.5081 4.51613C12.5403 3.70968 11.4651 3.30645 10.2823 3.30645ZM11.3105 13.8508C11.3105 13.8508 11.2198 13.7601 11.0383 13.5786C10.8569 13.3972 10.5108 13.3065 10 13.3065C9.48925 13.3065 9.05242 13.4879 8.68952 13.8508C8.32661 14.2137 8.14516 14.6505 8.14516 15.1613C8.14516 15.672 8.32661 16.1089 8.68952 16.4718C9.05242 16.8347 9.48925 17.0161 10 17.0161C10.5108 17.0161 10.9476 16.8347 11.3105 16.4718C11.6734 16.1089 11.8548 15.672 11.8548 15.1613C11.8548 14.6505 11.6734 14.2137 11.3105 13.8508Z" fill="#0004FF"/>
+</svg></div>
+      <div class="tooltip">Choose the warranty length. 5 Years includes additional support and services.</div>
+    </div>
+  </div>
+</div>
+
+  <div class="productView-price">
+                    {{#or customer (unless settings.hide_price_from_guests)}}
+                        {{> components/products/price price=product.price}}
+                    {{else}}
+                        {{> components/common/login-for-pricing}}
+                    {{/or}}
+                    {{#if product.call_for_price}}
+                        <p><span>{{product.call_for_price}}</span></p>
+                    {{/if}}
+                </div>
+                    {{#each product.custom_fields}}
+                        {{#if name '===' '__sizechart'}}
+                            {{> components/halothemes/products/halo-product-size-chart settings=../../settings}}
+                        {{/if}}
+                    {{/each}}
+                    {{#if product.options}}
+                        {{> components/products/add-to-cart}}
+                    {{else}}
+                        {{#if product.can_purchase}}
+                            {{> components/products/add-to-cart}}
+                        {{/if}}
+                        {{#if product.out_of_stock}}
+                            <div class="productView-actions">
+                                {{#if product.out_of_stock_message}}
+                                    <div class="form-action form-action2">
+                                        <span class="form-action-text">
+                                            <svg class="icon" aria-hidden="true"><use xlink:href="#icon-info2"></use></svg>
+                                            <span class="text">{{product.out_of_stock_message}}</span>
+                                        </span>
+                                    </div>
+                                {{else}}
+                                    <div class="form-action form-action2">
+                                        <span class="form-action-text">
+                                            <svg class="icon" aria-hidden="true"><use xlink:href="#icon-info2"></use></svg>
+                                            <span class="text">{{lang products.sold_out}}</span>
+                                        </span>
+                                    </div>
+                                {{/if}}
+                            </div>
+                        {{/if}}
+                    {{/if}}
+                </form>
+                {{#if settings.show_wishlist}}
+                    {{> components/common/wishlist-dropdown}}
+                {{/if}}
+            </div>
+
+            {{> components/halothemes/products/halo-notify-me-out-of-stock}}
+
+            {{#if theme_settings.product_viewingProduct}}
+                <div class="productView-ViewingProduct u-hiddenVisually">
+                    <svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye"></use></svg>5 customers are viewing this product
+                </div>
+            {{/if}}
+
+            {{#if theme_settings.product_info_tabs}}
+                <div class="productView-infoTabs">
+                    <ul class="productView-infoTab">
+                        <li class="item">
+                            <a href="#halo-productView-description">
+                                <svg class="icon" aria-hidden="true"><use xlink:href="#icon-info"></use></svg>
+                                <span class="text">{{lang 'products.details_tab'}}</span>
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#halo-productView-tabs">
+                                <svg class="icon" aria-hidden="true"><use xlink:href="#icon-truck"></use></svg>
+                                <span class="text">{{lang 'products.shipping_tab'}}</span>
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="#halo-productView-about">
+                                <svg class="icon" aria-hidden="true"><use xlink:href="#icon-chat"></use></svg>
+                                <span class="text">{{lang 'products.about_tab'}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            {{/if}}
+
+            {{#if theme_settings.product_share_button}}
+                <div class="productView-share">
+                    <div class="productView-shareLabel"><span>{{lang 'common.share'}}:</span></div>
+                    {{> components/common/share url=product.url}}
+                </div>
+            {{/if}}
+
+            {{> components/halothemes/products/halo-product-security-image}}
+            
+         
+
+        </div>
+           <div class="m-features">
+  <div class="m-feature-item">
+    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="30" viewBox="0 0 27 30" fill="none">
+<path d="M14.75 28.5H1V7.25H23.5V16" stroke="#131921" stroke-width="1.875" stroke-linecap="square"/>
+<path d="M7.25 11V6C7.25 3.23875 9.48875 1 12.25 1C15.0113 1 17.25 3.23875 17.25 6V11" stroke="#131921" stroke-width="1.875" stroke-linecap="square"/>
+<path d="M22.25 21V28.5M18.5 24.75H26" stroke="#742677" stroke-width="1.875" stroke-linecap="square"/>
+</svg>
+    <p>Financing<br>Available</p>
+  </div>
+  
+  <div class="m-feature-item">
+   <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
+<path d="M11 6H21V14.75" stroke="#742677" stroke-width="1.875"/>
+<path d="M14.75 9.75L11 6L14.75 2.25" stroke="#742677" stroke-width="1.875" stroke-linecap="square"/>
+<path d="M8.5 28.5C9.88071 28.5 11 27.3807 11 26C11 24.6193 9.88071 23.5 8.5 23.5C7.11929 23.5 6 24.6193 6 26C6 27.3807 7.11929 28.5 8.5 28.5Z" stroke="#131921" stroke-width="1.875" stroke-linecap="square"/>
+<path d="M23.5 28.5C24.8807 28.5 26 27.3807 26 26C26 24.6193 24.8807 23.5 23.5 23.5C22.1193 23.5 21 24.6193 21 26C21 27.3807 22.1193 28.5 23.5 28.5Z" stroke="#131921" stroke-width="1.875" stroke-linecap="square"/>
+<path d="M27.25 7.25L24.75 19.75H7.25L4.75 1H1" stroke="#131921" stroke-width="1.875" stroke-linecap="square"/>
+</svg>
+    <p>Satisfied or<br>refunded</p>
+  </div>
+
+  <div class="m-feature-item">
+   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12.25 21H4.75C2.625 21 1 22.625 1 24.75V28.5H16V24.75C16 22.625 14.375 21 12.25 21ZM8.5 17.25C6.375 17.25 4.75 15.625 4.75 13.5V12.25C4.75 10.125 6.375 8.5 8.5 8.5C10.625 8.5 12.25 10.125 12.25 12.25V13.5C12.25 15.625 10.625 17.25 8.5 17.25Z" stroke="#131921" stroke-width="1.875" stroke-linecap="square"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16 1V13.5L21 9.75H28.5V1H16Z" stroke="#742677" stroke-width="1.875" stroke-linecap="square"/>
+</svg>
+    <p>Top-notch<br>support</p>
+  </div>
+
+  <div class="m-feature-item">
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+<path d="M1 6H28.5M1 11H28.5M11 21H3.5C2.11875 21 1 19.8813 1 18.5V3.5C1 2.11875 2.11875 1 3.5 1H26C27.3813 1 28.5 2.11875 28.5 3.5V16M6 16H12.25" stroke="#131921" stroke-width="1.875" stroke-linecap="square"/>
+<path d="M18.5 19.75V17.25C18.5 15.875 19.625 14.75 21 14.75C22.375 14.75 23.5 15.875 23.5 17.25V19.75M21 23.5V24.75M16 19.75H26V28.5H16V19.75Z" stroke="#742677" stroke-width="1.875" stroke-linecap="square"/>
+</svg>
+    <p>Secure<br>payments</p>
+  </div>
+</div>
+    </div>
+
+    {{> components/halothemes/products/halo-sticky-add-to-cart}}
+</div>
+{{#if settings.show_product_reviews}}
+    {{> components/products/modals/writeReview}}
+{{/if}}
+<script>
+    document.querySelectorAll('.option').forEach(option => {
+  option.addEventListener('click', () => {
+    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    option.classList.add('selected');
+    document.getElementById('selected-warranty').innerText = option.dataset.warranty;
+  });
+});
+
+</script>

@@ -1,0 +1,197 @@
+<article class="card card-gallery{{#and (if images.length '>=' 2) (if theme_settings.halo_card_image_swap)}} card-hover{{/and}}" 
+    data-product-id="{{id}}" 
+    data-test="card-{{id}}"
+    data-event-type="{{event}}"
+    data-entity-id="{{id}}"
+    data-position="{{position}}"
+    data-name="{{name}}"
+    data-product-category="
+    {{#each category}}
+        {{#if @last}}
+            {{this}}
+        {{else}}
+            {{this}},
+        {{/if}}   
+    {{/each}}"
+    data-product-brand="{{brand.name}}"
+    data-product-price="
+    {{#or customer (unless settings.hide_price_from_guests)}}
+        {{#if price.with_tax}}
+            {{price.with_tax.value}} 
+        {{else}}
+            {{price.without_tax.value}}
+        {{/if}}
+    {{else}}
+        {{lang 'common.login_for_pricing'}}
+    {{/or}}"
+>
+    <figure class="card-figure">
+        {{#if theme_settings.halo-label-product}}
+            <div class="halo-badges halo-badges-{{theme_settings.halo-label-product-position}}">
+                {{#each productsnew}}
+                    {{#if id '==' ../id}}
+                        <div class="new-badge halo-badge">
+                            <span class="text">{{lang 'products.new_label'}}</span>
+                        </div>
+                    {{/if}}
+                {{/each}}
+                {{#or price.non_sale_price_with_tax price.non_sale_price_without_tax}}
+                    <div class="sale-badge halo-badge">
+                        {{#if price.non_sale_price_with_tax}}
+                            <span class="text">{{lang 'products.sale_label'}} {{round (subtract 100 (multiply (divide price.with_tax.value price.non_sale_price_with_tax.value) 100)) 0}}%</span>
+                        {{/if}}
+                        {{#if price.non_sale_price_without_tax}}
+                            <span class="text">{{lang 'products.sale_label'}} {{round (subtract 100 (multiply (divide price.without_tax.value price.non_sale_price_without_tax.value) 100)) 0}}%</span>
+                        {{/if}}
+                    </div>
+                {{/or}}
+                {{#each custom_fields}}
+                    {{#if name '===' '__customlabel'}}
+                        <div class="custom-badge halo-badge">
+                            <span class="text">{{{value}}}</span>
+                        </div>
+                    {{/if}}
+                {{/each}}
+                {{#if out_of_stock_message}}
+                    <div class="soldOut-badge halo-badge">
+                        <span class="text">{{lang 'products.sold_out_label'}}</span>
+                    </div>
+                {{/if}}
+            </div>
+        {{/if}}
+        <a href="{{url}}" class="card-link" data-event-type="product-click">
+            <div class="card-img-container{{#if images.length '<' 1}} card-img-container2{{/if}}">
+                {{#unless images.length '<' 1}}
+                    {{> components/common/responsive-img
+                        image=image
+                        class="card-image"
+                        fallback_size=theme_settings.gallery_size
+                        lazyload=theme_settings.lazyload_mode
+                        default_image=theme_settings.default_image_product
+                    }}
+                    {{#and (if images.length '>=' 2) (if theme_settings.halo_card_image_swap)}}
+                        {{#each images}}
+                            {{#if @index '==' 1}}
+                                <span class="card-image-2">
+                                    {{> components/common/responsive-img
+                                        image=this
+                                        class=""
+                                        fallback_size=../../theme_settings.gallery_size
+                                        lazyload=../../theme_settings.lazyload_mode
+                                        default_image=../../theme_settings.default_image_product
+                                    }}
+                                </span>
+                            {{/if}}
+                        {{/each}}
+                    {{/and}}
+                {{else}}
+                    {{> components/common/responsive-img
+                        class="card-no-image"
+                        fallback_size=theme_settings.gallery_size
+                        lazyload=theme_settings.lazyload_mode
+                        default_image=theme_settings.default_image_product
+                    }}
+                {{/unless}}
+            </div>
+        </a>
+        <div class="card-quickview-button">
+            {{#unless hide_product_quick_view}}
+                {{#if theme_settings.show_product_quick_view}}
+                    <a class="card-quickview card-figure-button" href="#" data-event-type="product-click" data-product-id="{{id}}">{{lang 'products.quick_view'}}</a>
+                {{/if}}
+            {{/unless}}
+            {{#if show_compare}}
+                <div class="card-compare">
+                    <input type="checkbox" name="products[]" value="{{id}}" id="compare-{{id}}" data-compare-id="{{id}}">
+                    <label class="compare" for="compare-{{id}}">{{lang 'products.compare'}}</label>
+                </div>
+            {{/if}}
+        </div>
+    </figure>
+    <div class="card-body">
+        <div class="card-body-content">
+            {{#and (if brand.name) (if theme_settings.halo_card_brand)}}
+                <p class="card-text" data-test-info-type="brandName">{{brand.name}}</p>
+            {{/and}}
+            <h4 class="card-title">
+                {{#if theme_settings.halo_card_title '==' 'ellipsis'}}
+                 <!--class="card-ellipsis" data-event-type="product-click" style="-webkit-box-orient: vertical;"-->
+                    <a href="{{url}}" class="m-product-title">
+                        <span>{{name}}</span>
+                    </a>
+                    <p>{{description}}</p>
+                {{else}}
+                    <a href="{{url}}" data-event-type="product-click">
+                        <span>{{name}}</span>
+                    </a>
+                {{/if}}
+            </h4>
+            {{#and (if settings.show_product_rating) (if theme_settings.halo_card_ratings)}}
+                <p class="card-rating" data-test-info-type="productRating">
+                    <span class="rating--small">
+                        {{> components/products/ratings rating=rating}}
+                    </span>
+                    {{#if num_reviews}}
+                        <span class="rating--count">({{num_reviews}})</span>
+                    {{/if}}
+                </p>
+            {{/and}}
+            {{#if summary}}
+                <div class="card-desc">{{{summary}}}</div>
+            {{/if}}
+            <div class="card-price m-price" data-test-info-type="price">
+                {{#or customer (unless settings.hide_price_from_guests)}}
+                    {{> components/products/price price=price}}
+                {{else}}
+                    {{> components/common/login-for-pricing}}
+                {{/or}}
+            </div>
+            {{#if theme_settings.haloAddOptionForProduct}}
+                <div class="card-option card-option-{{id}}">
+                    <div class="form-field"></div>
+                </div>
+            {{/if}}
+        </div>
+        <div class="card-body-button">
+            {{#if settings.show_wishlist}}
+                <a href="/wishlist.php?action=add&product_id={{id}}" class="card-wishlist" aria-label="{{lang 'ada.add_wishlist'}}">
+                    <span class="text">{{lang 'products.wishlist_text'}}</span>
+                    <svg class="icon" aria-hidden="true"><use xlink:href="#icon-heart"></use></svg>
+                </a>
+            {{/if}}
+            {{#or customer (unless settings.hide_price_from_guests)}}
+                {{#if show_cart_action}}
+                    {{#if has_options}}
+                        {{#if theme_settings.halo_quick_shop}}
+                            <a href="#" data-event-type="product-click" class="card-action halo-quick-shop" data-product-id="{{id}}">
+                                <span>{{lang 'products.quick_shop'}}</span>
+                            </a>
+                        {{else}}
+                            <a href="{{url}}" data-event-type="product-click" class="card-action">
+                                <span>{{lang 'products.choose_options'}}</span>
+                            </a>
+                        {{/if}}
+                    {{/if}}
+                    {{#if pre_order}}
+                        <a href="{{pre_order_add_to_cart_url}}" data-event-type="product-click" class="card-action">
+                            <span>{{lang 'products.pre_order'}}</span>
+                        </a>
+                    {{/if}}
+                    {{#if add_to_cart_url }}
+                        <a href="{{add_to_cart_url}}" class="card-action halo-add-to-cart" data-product-id="{{id}}" data-wait-message="{{lang 'products.adding_to_cart'}}">
+                            <span>{{lang 'products.add_to_cart'}}</span>
+                        </a>
+                    {{/if}}
+                    {{#if out_of_stock_message }}
+                        <a href="{{url}}" data-event-type="product-click" class="card-action card-out-of-stock">
+                            <span>{{out_of_stock_message}}</span>
+                        </a>
+                    {{/if}}
+                {{/if}}
+            {{/or}}
+            <p class="m-dilivery"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none">
+<path d="M1.30721 0.000244141C0.703864 0.000244141 0.214355 0.50415 0.214355 1.12524V8.62524C0.214355 9.24634 0.703864 9.75024 1.30721 9.75024H1.6715C1.6715 10.9924 2.65052 12.0002 3.85721 12.0002C5.06391 12.0002 6.04293 10.9924 6.04293 9.75024H8.95721C8.95721 10.9924 9.93623 12.0002 11.1429 12.0002C12.3496 12.0002 13.3286 10.9924 13.3286 9.75024H14.0572C14.4602 9.75024 14.7858 9.41509 14.7858 9.00024C14.7858 8.5854 14.4602 8.25024 14.0572 8.25024V5.56196C14.0572 5.16353 13.9047 4.78149 13.6315 4.50024L11.8715 2.68853C11.5983 2.40728 11.2272 2.25024 10.8401 2.25024H9.68578V1.12524C9.68578 0.50415 9.19627 0.000244141 8.59293 0.000244141H1.30721ZM9.68578 3.75024H10.8401L12.6001 5.56196V6.00024H9.68578V3.75024ZM2.76436 9.75024C2.76436 9.45188 2.8795 9.16573 3.08445 8.95475C3.2894 8.74377 3.56737 8.62524 3.85721 8.62524C4.14706 8.62524 4.42503 8.74377 4.62998 8.95475C4.83493 9.16573 4.95007 9.45188 4.95007 9.75024C4.95007 10.0486 4.83493 10.3348 4.62998 10.5457C4.42503 10.7567 4.14706 10.8752 3.85721 10.8752C3.56737 10.8752 3.2894 10.7567 3.08445 10.5457C2.8795 10.3348 2.76436 10.0486 2.76436 9.75024ZM11.1429 8.62524C11.4328 8.62524 11.7107 8.74377 11.9157 8.95475C12.1206 9.16573 12.2358 9.45188 12.2358 9.75024C12.2358 10.0486 12.1206 10.3348 11.9157 10.5457C11.7107 10.7567 11.4328 10.8752 11.1429 10.8752C10.8531 10.8752 10.5751 10.7567 10.3702 10.5457C10.1652 10.3348 10.0501 10.0486 10.0501 9.75024C10.0501 9.45188 10.1652 9.16573 10.3702 8.95475C10.5751 8.74377 10.8531 8.62524 11.1429 8.62524Z" fill="#742677"/>
+</svg><span><b>Free White Glove Delivery</b></span></p>
+        </div>
+    </div>
+</article>
