@@ -1,0 +1,108 @@
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .testimonial-container {
+            max-width: 550px;
+            height: 253px;
+            margin: 0 auto;
+            background: white;
+            display: flex;
+            align-items: stretch;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .testimonial-image {
+            width: 149px;
+            height: 253px;
+            background: #e0e0e0;
+            flex-shrink: 0;
+        }
+
+        .testimonial-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-content {
+            padding: 30px 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-size: 14px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: #007acc;
+            font-size: 16px;
+        }
+
+        .quote-mark {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            color: #007acc;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .testimonial-container {
+                flex-direction: column;
+                max-width: 400px;
+            }
+
+            .testimonial-image {
+                width: 100%;
+                height: 250px;
+            }
+
+            .testimonial-content {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+
+    <div class="testimonial-container">
+        <div class="testimonial-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='200'%3E%3Crect width='180' height='200' fill='%23ddd'/%3E%3Ctext x='90' y='100' text-anchor='middle' dy='0.3em' font-family='Arial' font-size='14' fill='%23666'%3EPerson Image%3C/text%3E%3C/svg%3E" alt="Christine McVie">
+        </div>
+        
+        <div class="testimonial-content">
+            
+            <div class="testimonial-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat.
+            </div>
+            
+            <div class="testimonial-author">
+                Christine McVie
+            </div>
+        </div>
+    </div>

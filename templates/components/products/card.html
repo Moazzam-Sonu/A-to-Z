@@ -1,4 +1,4 @@
-<article class="card{{#and (if images.length '>=' 2) (if theme_settings.halo_card_image_swap)}} card-hover{{/and}}" 
+<article class="hompag-card hompag-card-gallery{{#and (if images.length '>=' 2) (if theme_settings.halo_card_image_swap)}} hompag-card-hover{{/and}}" 
     data-product-id="{{id}}" 
     data-test="card-{{id}}"
     data-event-type="{{event}}"
@@ -25,46 +25,46 @@
         {{lang 'common.login_for_pricing'}}
     {{/or}}"
 >
-    <figure class="card-figure">
+    <figure class="hompag-card-figure">
         {{#if theme_settings.halo-label-product}}
-            <div class="halo-badges halo-badges-{{theme_settings.halo-label-product-position}}">
+            <div class="hompag-badges hompag-badges-{{theme_settings.halo-label-product-position}}">
                 {{#each productsnew}}
                     {{#if id '==' ../id}}
-                        <div class="new-badge halo-badge">
-                            <span class="text">{{lang 'products.new_label'}}</span>
+                        <div class="hompag-new-badge hompag-badge">
+                            <span class="hompag-text">Best Seller</span>
                         </div>
                     {{/if}}
                 {{/each}}
                 {{#or price.non_sale_price_with_tax price.non_sale_price_without_tax}}
-                    <div class="sale-badge halo-badge">
+                    <div class="hompag-sale-badge hompag-badge">
                         {{#if price.non_sale_price_with_tax}}
-                            <span class="text" data-sale="{{round (subtract 100 (multiply (divide price.with_tax.value price.non_sale_price_with_tax.value) 100)) 0}}%">{{lang 'products.sale_label'}} {{round (subtract 100 (multiply (divide price.with_tax.value price.non_sale_price_with_tax.value) 100)) 0}}%</span>
+                            <span class="hompag-text" data-sale="{{round (subtract 100 (multiply (divide price.with_tax.value price.non_sale_price_with_tax.value) 100)) 0}}%">{{lang 'products.sale_label'}} {{round (subtract 100 (multiply (divide price.with_tax.value price.non_sale_price_with_tax.value) 100)) 0}}%</span>
                         {{/if}}
                         {{#if price.non_sale_price_without_tax}}
-                            <span class="text" data-sale="{{round (subtract 100 (multiply (divide price.without_tax.value price.non_sale_price_without_tax.value) 100)) 0}}%">{{lang 'products.sale_label'}} {{round (subtract 100 (multiply (divide price.without_tax.value price.non_sale_price_without_tax.value) 100)) 0}}%</span>
+                            <span class="hompag-text" data-sale="{{round (subtract 100 (multiply (divide price.without_tax.value price.non_sale_price_without_tax.value) 100)) 0}}%">{{lang 'products.sale_label'}} {{round (subtract 100 (multiply (divide price.without_tax.value price.non_sale_price_without_tax.value) 100)) 0}}%</span>
                         {{/if}}
                     </div>
                 {{/or}}
                 {{#each custom_fields}}
                     {{#if name '===' '__customlabel'}}
-                        <div class="custom-badge halo-badge">
-                            <span class="text">{{{value}}}</span>
+                        <div class="hompag-custom-badge hompag-badge">
+                            <span class="hompag-text">{{{value}}}</span>
                         </div>
                     {{/if}}
                 {{/each}}
                 {{#if out_of_stock_message}}
-                    <div class="soldOut-badge halo-badge">
-                        <span class="text">{{lang 'products.sold_out_label'}}</span>
+                    <div class="hompag-soldOut-badge hompag-badge">
+                        <span class="hompag-text">{{lang 'products.sold_out_label'}}</span>
                     </div>
                 {{/if}}
             </div>
         {{/if}}
-        <a href="{{url}}" class="card-link" data-event-type="product-click">
-            <div class="card-img-container{{#if images.length '<' 1}} card-img-container2{{/if}}">
+        <a href="{{url}}" class="hompag-card-link" data-event-type="product-click">
+            <div class="hompag-card-img-container{{#if images.length '<' 1}} hompag-card-img-container2{{/if}}">
                 {{#unless images.length '<' 1}}
                     {{> components/common/responsive-img
                         image=image
-                        class="card-image"
+                        class="hompag-card-image"
                         fallback_size=theme_settings.productgallery_size
                         lazyload=theme_settings.lazyload_mode
                         default_image=theme_settings.default_image_product
@@ -72,7 +72,7 @@
                     {{#and (if images.length '>=' 2) (if theme_settings.halo_card_image_swap)}}
                         {{#each images}}
                             {{#if @index '==' 1}}
-                                <span class="card-image-2">
+                                <span class="hompag-card-image-2">
                                     {{> components/common/responsive-img
                                         image=this
                                         class=""
@@ -86,7 +86,7 @@
                     {{/and}}
                 {{else}}
                     {{> components/common/responsive-img
-                        class="card-no-image"
+                        class="hompag-card-no-image"
                         fallback_size=theme_settings.productgallery_size
                         lazyload=theme_settings.lazyload_mode
                         default_image=theme_settings.default_image_product
@@ -94,22 +94,22 @@
                 {{/unless}}
             </div>
         </a>
-        <div class="card-quickview-button">
+        <div class="hompag-card-quickview-button">
             {{#unless hide_product_quick_view}}
                 {{#if theme_settings.show_product_quick_view}}
-                    <a class="card-quickview card-figure-button" href="#" data-event-type="product-click" data-product-id="{{id}}">{{lang 'products.quick_view'}}</a>
+                    <a class="hompag-card-quickview hompag-card-figure-button" href="#" data-event-type="product-click" data-product-id="{{id}}">{{lang 'products.quick_view'}}</a>
                 {{/if}}
             {{/unless}}
         </div>
     </figure>
-    <div class="card-body">
-        <div class="card-body-content">
+    <div class="hompag-card-body">
+        <div class="hompag-card-body-content">
             {{#and (if brand.name) (if theme_settings.halo_card_brand)}}
-                <p class="card-text" data-test-info-type="brandName">{{brand.name}}</p>
+                <p class="hompag-card-text" data-test-info-type="brandName">{{brand.name}}</p>
             {{/and}}
-            <h3 class="card-title">
+            <h3 class="hompag-card-title">
                 {{#if theme_settings.halo_card_title '==' 'ellipsis'}}
-                    <a href="{{url}}" class="card-ellipsis" data-event-type="product-click" style="-webkit-box-orient: vertical;">
+                    <a href="{{url}}" class="hompag-card-ellipsis" data-event-type="product-click" style="-webkit-box-orient: vertical;">
                         <span>{{name}}</span>
                     </a>
                 {{else}}
@@ -119,16 +119,19 @@
                 {{/if}}
             </h3>
             {{#and (if settings.show_product_rating) (if theme_settings.halo_card_ratings)}}
-                <p class="card-rating" data-test-info-type="productRating">
-                    <span class="rating--small">
+                <p class="hompag-card-rating" data-test-info-type="productRating">
+                    <span class="hompag-rating--small">
                         {{> components/products/ratings rating=rating}}
                     </span>
                     {{#if num_reviews}}
-                        <span class="rating--count">({{num_reviews}})</span>
+                        <span class="hompag-rating--count">({{num_reviews}})</span>
                     {{/if}}
                 </p>
             {{/and}}
-            <div class="card-price" data-test-info-type="price">
+            <div class="hompag-card-description">
+                <p>Lorem ipsum dolor sit amet.</p>
+            </div>
+            <div class="hompag-card-price" data-test-info-type="price">
                 {{#or customer (unless settings.hide_price_from_guests)}}
                     {{> components/products/price price=price}}
                 {{else}}
@@ -136,48 +139,432 @@
                 {{/or}}
             </div>
             {{#if theme_settings.haloAddOptionForProduct}}
-                <div class="card-option card-option-{{id}}">
-                    <div class="form-field"></div>
+                <div class="hompag-card-option hompag-card-option-{{id}}">
+                    <div class="hompag-form-field"></div>
                 </div>
             {{/if}}
         </div>
-        <div class="card-body-button">
+        <div class="hompag-card-body-button">
             {{#if settings.show_wishlist}}
-                <a href="/wishlist.php?action=add&product_id={{id}}" class="card-wishlist" aria-label="{{lang 'ada.add_wishlist'}}">
-                    <span class="text">{{lang 'products.wishlist_text'}}</span>
-                    <svg class="icon" aria-hidden="true"><use xlink:href="#icon-heart"></use></svg>
+                <a href="/wishlist.php?action=add&product_id={{id}}" class="hompag-card-wishlist" aria-label="{{lang 'ada.add_wishlist'}}">
+                    <span class="hompag-text">{{lang 'products.wishlist_text'}}</span>
+                    <svg class="hompag-icon" aria-hidden="true"><use xlink:href="#icon-heart"></use></svg>
                 </a>
             {{/if}}
             {{#or customer (unless settings.hide_price_from_guests)}}
                 {{#if show_cart_action}}
                     {{#if has_options}}
                         {{#if theme_settings.halo_quick_shop}}
-                            <a href="#" data-event-type="product-click" class="card-action halo-quick-shop" data-product-id="{{id}}">
+                            <a href="#" data-event-type="product-click" class="hompag-card-action hompag-quick-shop" data-product-id="{{id}}">
                                 <span>{{lang 'products.quick_shop'}}</span>
                             </a>
                         {{else}}
-                            <a href="{{url}}" data-event-type="product-click" class="card-action">
+                            <a href="{{url}}" data-event-type="product-click" class="hompag-card-action">
                                 <span>{{lang 'products.choose_options'}}</span>
                             </a>
                         {{/if}}
                     {{/if}}
                     {{#if pre_order}}
-                        <a href="{{pre_order_add_to_cart_url}}" data-event-type="product-click" class="card-action">
+                        <a href="{{pre_order_add_to_cart_url}}" data-event-type="product-click" class="hompag-card-action">
                             <span>{{lang 'products.pre_order'}}</span>
                         </a>
                     {{/if}}
                     {{#if add_to_cart_url }}
-                        <a href="{{add_to_cart_url}}" class="card-action halo-add-to-cart" data-product-id="{{id}}" data-wait-message="{{lang 'products.adding_to_cart'}}">
-                            <span>{{lang 'products.add_to_cart'}}</span>
+                        <a href="{{add_to_cart_url}}" class="hompag-card-action hompag-add-to-cart" data-product-id="{{id}}" data-wait-message="{{lang 'products.adding_to_cart'}}">
+                            <span>Shop Now</span>
                         </a>
                     {{/if}}
                     {{#if out_of_stock_message }}
-                        <a href="{{url}}" data-event-type="product-click" class="card-action card-out-of-stock">
+                        <a href="{{url}}" data-event-type="product-click" class="hompag-card-action hompag-card-out-of-stock">
                             <span>{{out_of_stock_message}}</span>
                         </a>
                     {{/if}}
                 {{/if}}
             {{/or}}
         </div>
+        <div class="hompag-delivery-info">
+            
+            <span class="hompag-delivery-text"><img class="hompag-delivery-icon" src="/assets/icons/Cart-shipping.svg" alt="Cart-shipping" height="3%" width="3%">Free White Glove Delivery</span>
+        </div>
     </div>
 </article>
+
+
+<style>
+    /* Main card container */
+.hompag-card {
+    background: #ffffff;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    max-width: 280px;
+    margin: 0 auto;
+    border: none;
+    border-radius: 0;
+    margin-top: 20%;
+}
+
+.hompag-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.hompag-card:hover .hompag-card-image {
+    transform: scale(1.05);
+}
+
+.hompag-card-image-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hompag-card-hover:hover .hompag-card-image-2 {
+    opacity: 1;
+}
+
+.hompag-card-hover:hover .hompag-card-image {
+    opacity: 0;
+}
+
+.hompag-card-no-image {
+    width: 100%;
+    height: 100%;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hompag-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* Badges */
+.hompag-badges {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+}
+
+.hompag-badge {
+    border-radius: 0;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+}
+
+.hompag-new-badge {
+    background-color: #742677;
+}
+
+.hompag-sale-badge {
+    background-color: #dc2626;
+}
+
+.hompag-custom-badge {
+    background-color: #059669;
+}
+
+.hompag-soldOut-badge {
+    background-color: #6b7280;
+}
+
+.hompag-badge .hompag-text {
+    display: block;
+    line-height: 1.2;
+}
+
+/* Card body */
+.hompag-card-body {
+    padding: 15px;
+    text-align: center;
+}
+
+.hompag-card-body-content {
+    margin-bottom: 15px;
+}
+
+/* Brand name */
+.hompag-card-text {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0 0 5px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+/* Product title */
+.hompag-card-title {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #111827;
+    text-align: center;
+}
+
+.hompag-card-title a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+.hompag-card-title a:hover {
+    color: #742677;
+}
+
+.hompag-card-ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Description */
+.hompag-card-description {
+    margin: 8px 0;
+    text-align: center;
+}
+
+.hompag-card-description p {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Rating */
+.hompag-card-rating {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.hompag-rating--small {
+    display: flex;
+    align-items: center;
+}
+
+.hompag-rating--count {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* Price */
+.hompag-card-price {
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.hompag-card-price .price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #059669;
+}
+
+.hompag-card-price .price--withoutTax,
+.hompag-card-price .price--withTax {
+    font-size: 18px;
+    font-weight: 700;
+    color: #059669;
+}
+
+.hompag-card-price .price--rrp {
+    font-size: 14px;
+    color: #9ca3af;
+    text-decoration: line-through;
+}
+
+/* Buttons */
+.hompag-card-body-button {
+    margin: 15px 0;
+}
+
+.hompag-card-action {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 16px;
+    background: transparent;
+    border: 1px solid #d1d5db;
+    border-radius: 0;
+    text-align: center;
+    text-decoration: none;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.hompag-card-action:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+    color: #111827;
+}
+
+.hompag-card-action span {
+    display: block;
+}
+
+.hompag-card-out-of-stock {
+    background: #f3f4f6;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+.hompag-card-out-of-stock:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+/* Wishlist */
+.hompag-card-wishlist {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px;
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 12px;
+    transition: color 0.3s ease;
+}
+
+.hompag-card-wishlist:hover {
+    color: #dc2626;
+}
+
+.hompag-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Quick view */
+.hompag-card-quickview-button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hompag-card:hover .hompag-card-quickview-button {
+    opacity: 1;
+}
+
+.hompag-card-quickview {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 0;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.hompag-card-quickview:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+/* Delivery info */
+.hompag-delivery-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    padding-top: 0;
+    border-top: none;
+}
+
+.hompag-delivery-icon {
+    flex: 20%;
+    width: 16px;
+    height: 16px;
+    color: #742677;
+    flex-shrink: 0;
+}
+
+.hompag-delivery-text {
+    display: flex;
+    flex: 80%;
+    font-size: 12px;
+    color: #742677;
+    font-weight: 600;
+}
+
+/* Options */
+.hompag-card-option {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.hompag-form-field {
+    margin: 5px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hompag-card {
+        max-width: 100%;
+    }
+    
+    .hompag-card-img-container {
+        height: 180px;
+    }
+    
+    .hompag-card-title {
+        font-size: 15px;
+    }
+    
+    .hompag-card-price .price,
+    .hompag-card-price .price--withoutTax,
+    .hompag-card-price .price--withTax {
+        font-size: 16px;
+    }
+}
+
+/* Badge positioning variants */
+.hompag-badges-top-left {
+    top: 0;
+    left: 0;
+    right: auto;
+}
+
+.hompag-badges-top-right {
+    top: 0;
+    right: 0;
+}
+
+.hompag-badges-bottom-left {
+    bottom: 0;
+    left: 0;
+    top: auto;
+    right: auto;
+}
+
+.hompag-badges-bottom-right {
+    bottom: 0;
+    right: 0;
+    top: auto;
+}
+
+</style>

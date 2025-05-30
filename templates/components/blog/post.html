@@ -41,7 +41,43 @@
             {{/if}}
         </div>
     {{else}}
-        <div class="{{class}}-image">
+    <style>
+    .blog-read-more-wrapper {
+    margin-top: 15px;
+    padding-top: 15px;
+    text-align: center;
+}
+
+.blog-read-more-btn {
+    display: inline-block;
+    padding: 10px 30px;
+    border: 1px solid #000;
+    background: transparent;
+    color: #000;
+    text-decoration: none;
+    border-radius: 0;
+    font-weight: bold;
+    transition: none;
+    cursor: pointer;
+}
+
+.blog-read-more-btn:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+.blog-read-more-btn span {
+color: #000;
+text-align: center;
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+    </style>
+
+        <div class="{{class}}-image" style="margin-bottom: 26px;">
             {{#if post.thumbnail}}
                 <a href="{{post.url}}">
                     {{> components/common/responsive-img
@@ -54,19 +90,29 @@
                 </a>
             {{/if}}
         </div>
+
         <div class="{{class}}-content">
-            <div class="{{class}}-header">
-                <div class="{{class}}-header-top">
+            <!-- <div class="{{class}}-header"> -->
+                <!-- <div class="{{class}}-header-top">
                     <h2 class="{{class}}-title">
                         <a href="{{url}}">{{post.title}}</a></h2>
                     </h2>
-                </div>
-                <div class="{{class}}-header-bottom">
+                </div> -->
+                <!-- <div class="{{class}}-header-bottom">
                     <p class="{{class}}-date">{{#if post.author}}{{lang 'blog.posted_by' name=post.author}} on {{/if}}{{post.date_published}}</p>
-                </div>
-            </div>
+                </div> -->
+            <!-- </div> -->
             <div class="{{class}}-body">
-                {{{post.summary}}}&hellip;{{#if show_read_more}} <a href="{{url}}" class="link"><span>{{lang 'blog.read_more'}}</span></a>{{/if}}
+                {{{post.summary}}}&hellip;
+                <!-- {{#if show_read_more}} <a href="{{url}}" class="link"><span>{{lang 'blog.read_more'}}</span></a>{{/if}} -->
+                     {{#if show_read_more}} 
+        <div class="blog-read-more-wrapper" margin-top="26px">
+            <a href="{{url}}" class="blog-read-more-btn">
+                <!-- <span>{{lang 'blog.read_more'}}</span> -->
+                 <span>Learn More</span>
+            </a>
+        </div>
+    {{/if}}
             </div>
         </div>
     {{/if}}

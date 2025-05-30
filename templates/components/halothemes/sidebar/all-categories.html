@@ -1,8 +1,238 @@
 {{#if theme_settings.halo-sidebar-all-categories}}
     <div class="sidebarBlock" id="allCategories">
-        <h4 class="sidebarBlock-heading">Categories</h4>
+        <!-- <h3 class="sidebarBlock-heading">Categories</h3> -->
         {{#if categories}}
-            <ul class="all-categories-list">
+
+  <div class="sidebar-container">
+        <div class="sidebarBlock productFilter">
+            <!-- Product Count Header -->
+            <div class="productCount">
+                <span class="productCount-text">439 products</span>
+            </div>
+            
+            <!-- Refine Search Header -->
+            <div class="refineSearch">
+                <div class="refineSearch-header">
+                 <img src="/assets/icons/Vector.png" alt="vector icon" class="refineSearch-icon" height="6%" width="6%">
+                    <span class="refineSearch-text">Refine Your Search</span>
+                </div>
+            </div>
+
+            <!-- Brands Filter Section -->
+            <div class="filterSection" data-section="brands">
+                <div class="filterSection-header">
+                    <h3 class="filterSection-title">Brands</h3>
+                    <span class="filterSection-toggle">
+                        <svg class="chevron-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </div>
+                <div class="filterSection-content">
+                    <ul class="filterSection-list">
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="brand" value="rockson">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Rockson</span>
+                                <span class="filterSection-count">(20)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="brand" value="dolor-sit-amet">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Dolor Sit Amet</span>
+                                <span class="filterSection-count">(15)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="brand" value="ipsum-dolor-sit-amet">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Ipsum Dolor Sit Amet</span>
+                                <span class="filterSection-count">(8)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="brand" value="lorem-ipsum-dolor">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Lorem Ipsum Dolor</span>
+                                <span class="filterSection-count">(31)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="brand" value="lorem-ipsum">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Lorem Ipsum</span>
+                                <span class="filterSection-count">(20)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="brand" value="dolor-sit-amet-2">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Dolor Sit Amet</span>
+                                <span class="filterSection-count">(15)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="brand" value="ipsum-dolor-sit-amet-2">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Ipsum Dolor Sit Amet</span>
+                                <span class="filterSection-count">(8)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="brand" value="lorem-ipsum-dolor-2">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Lorem Ipsum Dolor</span>
+                                <span class="filterSection-count">(31)</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Price Filter Section -->
+            <div class="filterSection" data-section="price">
+                <div class="filterSection-header">
+                    <h3 class="filterSection-title">Price</h3>
+                    <span class="filterSection-toggle">
+                        <svg class="chevron-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </div>
+                <div class="filterSection-content">
+                    <ul class="filterSection-list">
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="price" value="10-50">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">$10 - $50</span>
+                                <span class="filterSection-count">(20)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="price" value="50-100">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">$50 - $100</span>
+                                <span class="filterSection-count">(15)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="price" value="100-150">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">$100 - $150</span>
+                                <span class="filterSection-count">(8)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="price" value="150-200">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">$150 - $200</span>
+                                <span class="filterSection-count">(31)</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Filter Name Section -->
+            <div class="filterSection" data-section="filter-name">
+                <div class="filterSection-header">
+                    <h3 class="filterSection-title">Filter Name</h3>
+                    <span class="filterSection-toggle">
+                        <svg class="chevron-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </div>
+                <div class="filterSection-content">
+                    <ul class="filterSection-list">
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="filter" value="lorem-ipsum-1">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Lorem Ipsum</span>
+                                <span class="filterSection-count">(20)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="filter" value="dolor-sit-amet-1">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Dolor Sit Amet</span>
+                                <span class="filterSection-count">(15)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="filter" value="ipsum-dolor-sit-amet-1">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Ipsum Dolor Sit Amet</span>
+                                <span class="filterSection-count">(8)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="filter" value="lorem-ipsum-dolor-1">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Lorem Ipsum Dolor</span>
+                                <span class="filterSection-count">(31)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="filter" value="lorem-ipsum-2">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Lorem Ipsum</span>
+                                <span class="filterSection-count">(20)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="filter" value="dolor-sit-amet-2">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Dolor Sit Amet</span>
+                                <span class="filterSection-count">(15)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="filter" value="ipsum-dolor-sit-amet-2">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Ipsum Dolor Sit Amet</span>
+                                <span class="filterSection-count">(8)</span>
+                            </label>
+                        </li>
+                        <li class="filterSection-item">
+                            <label class="filterSection-label">
+                                <input type="checkbox" class="filterSection-checkbox" name="filter" value="lorem-ipsum-dolor-2">
+                                <span class="filterSection-checkmark"></span>
+                                <span class="filterSection-name">Lorem Ipsum Dolor</span>
+                                <span class="filterSection-count">(31)</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+            <!-- <ul class="all-categories-list">
                 {{#each categories}}
                     <li class="navPages-item{{#if is_active}} current-cate is-clicked{{/if}}">
                         {{#if children}}
@@ -38,7 +268,252 @@
                         {{/if}}
                     </li>
                 {{/each}}
-            </ul>
+            </ul> -->
         {{/if}}
     </div>
 {{/if}}
+<style>
+  /* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial;
+    background-color: #f8f9fa;
+    color: #000000;
+    line-height: 1.5;
+}
+
+.sidebar-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+/* Product Filter Sidebar */
+.sidebarBlock.productFilter {
+    width: 320px;
+    background-color: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+/* Product Count Header */
+.productCount {
+    padding: 0px 24px 32px 24px;
+   
+    color: #000000;
+    border-bottom: 1px solid #e0e1e4;
+}
+
+.productCount-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000000;
+    line-height: 1;
+}
+
+/* Refine Search Section */
+.refineSearch {
+    padding: 2px 24px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.refineSearch-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.refineSearch-icon {
+    font-size: 16px;
+    color: #000000;
+}
+
+.refineSearch-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+}
+
+/* Filter Section */
+.filterSection {
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.filterSection-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 24px;
+    cursor: pointer;
+    background-color: #ffffff;
+    transition: background-color 0.2s ease;
+}
+
+.filterSection-header:hover {
+    background-color: #f9fafb;
+}
+
+.filterSection-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.filterSection-toggle {
+    color: #6b7280;
+    transition: transform 0.2s ease;
+}
+
+/* Dropdown Icon */
+.icon-chevron-down::before {
+    content: "⌄";
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.filterSection.collapsed .filterSection-toggle {
+    transform: rotate(-90deg);
+}
+
+/* Filter Content */
+.filterSection-content {
+    background-color: #fff;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    max-height: 1000px;
+    margin-bottom: 12%;
+}
+
+.filterSection.collapsed .filterSection-content {
+    max-height: 0;
+    padding: 0;
+}
+
+.filterSection-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.filterSection-item {
+    margin: 0;
+}
+
+/* Filter Label and Checkbox */
+.filterSection-label {
+    display: flex;
+    align-items: center;
+    padding: 3px 24px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    position: relative;
+}
+
+.filterSection-label:hover {
+    background-color: #f9fafb;
+}
+
+/* Hide default checkbox */
+.filterSection-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Custom Checkbox */
+.filterSection-checkmark {
+    height: 16px;
+    width: 16px;
+    background-color: #fff;
+    border: 2px solid #d1d5db;
+    border-radius: 3px;
+    margin-right: 12px;
+    position: relative;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+/* Checkbox hover state */
+.filterSection-label:hover .filterSection-checkmark {
+    border-color: #9ca3af;
+}
+
+/* Checkbox checked state */
+.filterSection-checkbox:checked ~ .filterSection-checkmark {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+/* Checkmark icon */
+.filterSection-checkbox:checked ~ .filterSection-checkmark::after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 4px;
+    top: 1px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Filter Name */
+.filterSection-name {
+    flex: 1;
+    font-size: 0.8rem;
+    color: #000000;
+    line-height: 1.4;
+}
+
+/* Filter Count */
+.filterSection-count {
+    font-size: 14px;
+    color: #9ca3af;
+    margin-left: 8px;
+}
+
+/* Checked state styling */
+.filterSection-checkbox:checked ~ .filterSection-name {
+    color: #000000;
+    font-weight: 500;
+}
+
+.filterSection-checkbox:checked ~ .filterSection-count {
+    color: #6b7280;
+}
+
+/* Focus states for accessibility */
+.filterSection-checkbox:focus ~ .filterSection-checkmark {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebarBlock.productFilter {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    
+    .productCount,
+    .refineSearch,
+    .filterSection-header,
+    .filterSection-label {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+</style>

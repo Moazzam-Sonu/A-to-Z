@@ -95,7 +95,7 @@
         img {
             width: 100%;
             position: absolute;
-            top: 0;
+           top: 0;
             transition: $anchor-transition;
             left: 0;
             max-height: 100%;
@@ -351,7 +351,7 @@
         display: block;
         position: relative;
         max-width: get-width(stencilString('productgallery_size'));
-        @include lazy-loaded-padding('productgallery_size');
+    //    @include lazy-loaded-padding('productgallery_size');
 
         &.card-img-container2 {
             display: flex;
@@ -365,7 +365,7 @@
     }
 
     .card-image {
-        @include lazy-loaded-img;
+      //  @include lazy-loaded-img;
         opacity: 1;
         visibility: visible;
         border: 0;
@@ -483,7 +483,7 @@
     .card-body-content {
         display: block;
         position: relative;
-        z-index: 2;
+        z-index: 1;
         padding: 12px 0 0 0;
         background-color: #ffffff;
         text-align: center;
@@ -502,7 +502,7 @@
     @media (min-width: 1025px) {
         .card-body-button {
             z-index: 1;
-            top: -56px;
+            top: 6px;
             bottom: auto;
             height: 45px;
             opacity: 1;
@@ -547,6 +547,8 @@
         display: -webkit-box;
         -webkit-line-clamp: 2;
         text-overflow: ellipsis;
+        display: flex;
+        justify-content: center;
     }
 
     @media (min-width: 551px) {
@@ -601,7 +603,10 @@
 
         &.price-section--withoutTax,
         &.price-section--withTax {
-            color: stencilColor('sale_price_color');
+            color: #1D6448;
+            text-align: center;
+            padding-left: 4.6rem;
+            font-size: 1.5rem;
         }
 
         &.non-sale-price--withoutTax,
@@ -617,11 +622,15 @@
 
         &.price-none {
             +.price-section--withoutTax {
-                color: $color-textBase;
+                color: #1D6448;
+                text-align: center;
+                padding-left: 3rem;
+                font-size: 1.5rem;
             }
 
             +.price-section--withTax {
                 color: $color-textBase;
+
             }
         }
 
@@ -720,18 +729,18 @@
 .card-action {
     margin: 0 auto;
     width: auto;
-    display: block;
+    display: flex;
     font-size: $fontSize-root;
     font-weight: $fontWeight-bold;
     line-height: 1.625;
     padding: 8px 10px;
     text-align: center;
-    white-space: nowrap;
+    //white-space: nowrap;
     text-transform: capitalize;
     color: $card-figcaption-button-color;
-    border: 1px solid $card-figcaption-button-background;
+    border: 1px solid #000000;
     border-radius: 3px;
-    background-color: $card-figcaption-button-background;
+    background-color: #fff;
     transition: $anchor-transition;
     white-space: nowrap;
     overflow: hidden;
@@ -1222,6 +1231,7 @@
                 background-repeat: no-repeat;
                 background-size: 0 1px;
                 transition: background-size .5s;
+                font-weight: 800;
             }
 
             &:hover span {
@@ -1308,6 +1318,11 @@
                 margin-right: auto;
                 padding: 8px 10px 9px;
                 font-weight: $fontWeight-medium;
+                background-color: white;
+                border: 1px solid black;
+                border-radius: 0;
+                margin-left: 2rem;
+                justify-content: center;
 
                 span {
 
@@ -1341,7 +1356,7 @@
 
     .card-body {
         border-top: 1px solid #ebebeb;
-        
+
         .card-body-content {
             padding: 12px 15px 0;
             text-align: left;
